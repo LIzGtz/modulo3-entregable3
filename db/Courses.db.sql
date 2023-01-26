@@ -6,14 +6,14 @@ CREATE TABLE "courses"."Users" (
   "LastName" varchar(100) NOT NULL,
   "Email" varchar(100) NOT NULL,
   "Password" varchar(150) NOT NULL,
-  "CreatedOn" datetime NOT NULL,
-  "ModifiedOn" datetime NOT NULL
+  "CreatedOn" timestamp NOT NULL,
+  "ModifiedOn" timestamp NOT NULL
 );
 
 CREATE TABLE "courses"."UserCourses" (
   "UserId" integer NOT NULL,
   "CourseId" integer NOT NULL,
-  "CreatedOn" datetime NOT NULL,
+  "CreatedOn" timestamp NOT NULL,
   PRIMARY KEY ("UserId", "CourseId")
 );
 
@@ -21,15 +21,15 @@ CREATE TABLE "courses"."Courses" (
   "Id" integer PRIMARY KEY NOT NULL,
   "Name" varchar(150) NOT NULL,
   "Description" varchar(1000) NOT NULL,
-  "CreatedOn" datetime NOT NULL,
-  "ModifiedOn" datetime NOT NULL,
+  "CreatedOn" timestamp NOT NULL,
+  "ModifiedOn" timestamp NOT NULL,
   "CategoryId" integer NOT NULL
 );
 
 CREATE TABLE "courses"."Categories" (
   "Id" integer PRIMARY KEY NOT NULL,
   "Name" varchar(150) NOT NULL,
-  "CreatedOn" datetime NOT NULL,
+  "CreatedOn" timestamp NOT NULL,
   "CourseId" integer NOT NULL
 );
 
@@ -37,7 +37,7 @@ CREATE TABLE "courses"."Videos" (
   "Id" integer PRIMARY KEY NOT NULL,
   "Title" varchar(150) NOT NULL,
   "Url" varchar(2000) NOT NULL,
-  "CreatedOn" datetime NOT NULL,
+  "CreatedOn" timestamp NOT NULL,
   "CourseId" integer NOT NULL
 );
 
