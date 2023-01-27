@@ -18,6 +18,11 @@ app.get('/', (req, res) => {
 });
 
 // definir endpoints
+app.get('/categories', async (req, res) => {
+    const [results, metadata] = await sequelize.query('SELECT * FROM courses."Categories" c;');
+    
+    res.status(200).json(results);
+})
 
 app.listen(PORT, () => {
     console.log(`Server up and running. Listening on port ${PORT}.`);
