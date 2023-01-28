@@ -1,17 +1,11 @@
 const express = require('express');
-const { Sequelize } = require('sequelize');
-
+const Category = require('./models/category.model');
+const Course = require('./models/courses.model');
+const initModels = require('./models/init.models');
 const app = express();
 const PORT = 8000;
 
-const sequelize = new Sequelize('postgresql://postgres:ruut@localhost:5432/entregable3');
-
-try {
-    sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-} catch (error) {
-    console.error('Unable to connect to the database:', error);
-}
+initModels();
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: "Welcome to the server"})
@@ -19,8 +13,10 @@ app.get('/', (req, res) => {
 
 // definir endpoints
 app.get('/categories', async (req, res) => {
-    const [results, metadata] = await sequelize.query('SELECT * FROM courses."Categories" c;');
-    
+    // const [results, metadata] = await sequelize.query('SELECT * FROM courses."Categories" c;');
+    const results = await Category.findAll({
+        include: Course
+    });
     res.status(200).json(results);
 })
 
