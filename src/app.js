@@ -24,6 +24,7 @@ app.get('/courses', courseController.getCourses);
 app.put('/courses/:courseId', courseController.updateCourse);
 
 app.post('/courses/:courseId/videos', videoController.createVideo);
+app.delete('/courses/:courseId/videos/:videoId', videoController.deleteVideo);
 
 app.listen(PORT, () => {
     console.log(`Server up and running. Listening on port ${PORT}.`);
