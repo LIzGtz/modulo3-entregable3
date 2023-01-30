@@ -1,4 +1,5 @@
 const express = require('express');
+const { getUser, createUser } = require('./controllers/user.controller');
 const Category = require('./models/category.model');
 const Course = require('./models/courses.model');
 const initModels = require('./models/init.models');
@@ -7,9 +8,14 @@ const PORT = 8000;
 
 initModels();
 
+app.use(express.json()); // Permite recibir application/json en el request body
+
 app.get('/', (req, res) => {
     res.status(200).json({ message: "Welcome to the server"})
 });
+
+app.get('/users/:userId', getUser);
+app.post('/users', createUser);
 
 // definir endpoints
 app.get('/categories', async (req, res) => {
