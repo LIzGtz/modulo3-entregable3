@@ -1,3 +1,4 @@
+const Course = require('../models/courses.model');
 const User = require('../models/user.model');
 
 const getUser = async(req, res) => {
@@ -58,8 +59,40 @@ const updateUser = async (req, res) => {
     
 };
 
+// POST /users/:userId/courses
+const assignToCourse = async (req, res) => {
+    // 1. Obtener el usuario por medio del 'userId'.
+    const { userId } = req.params;
+    const user = await User.findByPk(userId, {
+        include: Course
+    });
+
+    if (user == null) {
+        res.status(404).end();
+        return;
+    }
+
+    // 2. Obtener el curso del body
+    const { courseId } = req.body;
+    const course = await Course.findByPk(courseId);
+
+    if (course == null) {
+        res.status(400).json({ message: `Course '${courseId} does not exist.` });
+        return;
+    }
+
+    user.addCourse(course);
+
+    await user.save();
+
+    user.getCourses();
+
+    res.status(200).json(user);
+}
+
 module.exports = {
     getUser,
     createUser,
-    updateUser
+    updateUser, 
+    assignToCourse
 };

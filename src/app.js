@@ -13,6 +13,7 @@ app.use(express.json()); // Permite recibir application/json en el request body
 app.get('/users/:userId', userController.getUser);
 app.post('/users', userController.createUser);
 app.put('/users/:userId', userController.updateUser);
+app.post('/users/:userId/courses', userController.assignToCourse);
 
 app.post('/categories', categoryController.createCategory);
 app.delete('/categories/:categoryId', categoryController.deleteCategory);

@@ -27,7 +27,8 @@ const UserCourses = db.define('userCourses', {
     createdOn: {
         field: 'CreatedOn',
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
+        defaultValue: Date.now()
     }
 }, {
     schema: 'courses',
