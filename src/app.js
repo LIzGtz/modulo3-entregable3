@@ -19,6 +19,7 @@ app.delete('/categories/:categoryId', categoryController.deleteCategory);
 
 app.post('/courses', courseController.createCourse);
 app.get('/courses', courseController.getCourses);
+app.put('/courses/:courseId', courseController.updateCourse);
 
 app.listen(PORT, () => {
     console.log(`Server up and running. Listening on port ${PORT}.`);
