@@ -5,9 +5,22 @@ const getUser = async(req, res) => {
     const { userId } = req.params;
     console.log(`UserId = ${userId}`);
 
-    const user = await User.findByPk(parseInt(userId), {
+    const options = {
         attributes: [ 'id', 'firstName', 'lastName', 'email' ]
-    });
+    };
+
+    if (req.query.courses !== undefined) {
+        options.include = {
+            model: Course,
+            through: {
+                attributes: []
+            }
+        };
+    }
+
+    const user = await User.findByPk(parseInt(userId), options);
+
+    console.log(req.query);
 
     if (user == null) {
         res.status(404).end();
