@@ -1,4 +1,3 @@
-const express = require('express');
 const User = require('../models/user.model');
 
 const getUser = async(req, res) => {
@@ -44,7 +43,7 @@ const updateUser = async (req, res) => {
         res.status(404).end();
         return;
     }
-    
+
     // 4. Obtener el body y actualizar
     const { firstName, lastName, password } = req.body;
 
