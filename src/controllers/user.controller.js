@@ -27,8 +27,40 @@ const createUser = async (req, res) => {
 };
 
 
+// Actualiza los datos del usuario. Esta peticion se ejecutará con PUT /users/:userId con
+// los datos a actualizar en el body. Regresa 200 (OK) si es exitoso. 404 (Not found) si no encuentra el usuario.
+// o 500 si hay un error
+const updateUser = async (req, res) => {
+    // 1. Obtener el userId del usuario a actualizar
+    const { userId } = req.params;
+
+    // 2. Obtener el usuario de la base de datos
+    const user = await User.findByPk(parseInt(userId), {
+        attributes: [ 'id', 'firstName', 'lastName', 'password' ]
+    });
+
+    // 3. Si user == null -> 404
+    if (user == null) {
+        res.status(404).end();
+        return;
+    }
+    
+    // 4. Obtener el body y actualizar
+    const { firstName, lastName, password } = req.body;
+
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.password = password;
+
+    // 5. Guardar user en base de datos
+    await user.save();
+
+    res.status(200).end();
+    
+};
 
 module.exports = {
     getUser,
-    createUser
+    createUser,
+    updateUser
 };
