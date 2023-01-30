@@ -3,6 +3,7 @@ const userController = require('./controllers/user.controller');
 const categoryController = require('./controllers/category.controller');
 const courseController = require('./controllers/course.controller');
 const initModels = require('./models/init.models');
+const videoController = require('./controllers/video.controller');
 const app = express();
 const PORT = 8000;
 
@@ -21,6 +22,8 @@ app.delete('/categories/:categoryId', categoryController.deleteCategory);
 app.post('/courses', courseController.createCourse);
 app.get('/courses', courseController.getCourses);
 app.put('/courses/:courseId', courseController.updateCourse);
+
+app.post('/courses/:courseId/videos', videoController.createVideo);
 
 app.listen(PORT, () => {
     console.log(`Server up and running. Listening on port ${PORT}.`);
