@@ -1,4 +1,6 @@
+const Category = require("../models/category.model");
 const Course = require("../models/courses.model");
+const Video = require("../models/videos.model");
 
 // POST /courses
 const createCourse = async (req, res) => {
@@ -18,9 +20,15 @@ const createCourse = async (req, res) => {
 
 // GET /courses
 const getCourses = async (req, res) => {
-    const courses = await Course.findAll({
+    const options = {
         attributes: [ 'id', 'name', 'description', 'createdOn', 'modifiedOn' ]
-    });
+    };
+
+    if (req.query.full != undefined) {
+        options.include = [ Video, Category ];
+    }
+
+    const courses = await Course.findAll(options);
 
     res.status(200).json(courses);
 };
